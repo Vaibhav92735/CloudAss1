@@ -1,25 +1,27 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
+import ExamList from './components/ExamList';
+import AddExam from './components/AddExam';
+import UpdateScore from './components/UpdateScore';
+import './App.css';
 
 function App() {
-  const [students, setStudents] = useState([]);
+  const [exams, setExams] = useState([]);
 
   useEffect(() => {
-    fetch("http://192.168.56.103/students") // Request via Nginx
-      .then((response) => response.json())
-      .then((data) => setStudents(data))
-      .catch((error) => console.error("Error fetching students:", error));
+    fetchExams();
   }, []);
 
+  const fetchExams = async () => {
+    const response = await fetch('http://10.10.88.61:3000/api/exams');
+    const data = await response.json();
+    setExams(data);
+  };
+
   return (
-    <div>
-      <h1>University Students</h1>
-      <ul>
-        {students.map((student) => (
-          <li key={student.id}>
-            {student.name} ({student.email})
-          </li>
-        ))}
-      </ul>
+    <div className="App">
+      <h1>Student Exam Helper</h1>
+      <AddExam fetchExams={fetchExams} />
+      <ExamList exams={exams} fetchExams={fetchExams} />
     </div>
   );
 }
