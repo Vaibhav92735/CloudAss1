@@ -8,7 +8,7 @@ const AddExam = ({ fetchExams }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch('http://192.168.56.101:3000/api/exams', {
+    const response = await fetch('http://10.10.88.61:3000/api/exams', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ subject, date, time, score }),
@@ -23,26 +23,29 @@ const AddExam = ({ fetchExams }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Add New Exam</h2>
+    <form onSubmit={handleSubmit} className="space-y-4">
+      <h2 className="text-xl font-semibold text-gray-700">Add New Exam</h2>
       <input
         type="text"
         placeholder="Subject"
         value={subject}
         onChange={(e) => setSubject(e.target.value)}
         required
+        className="w-full p-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-200"
       />
       <input
         type="date"
         value={date}
         onChange={(e) => setDate(e.target.value)}
         required
+        className="w-full p-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-200"
       />
       <input
         type="time"
         value={time}
         onChange={(e) => setTime(e.target.value)}
         required
+        className="w-full p-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-200"
       />
       <input
         type="number"
@@ -50,8 +53,14 @@ const AddExam = ({ fetchExams }) => {
         value={score}
         onChange={(e) => setScore(e.target.value)}
         required
+        className="w-full p-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-200"
       />
-      <button type="submit">Add Exam</button>
+      <button
+        type="submit"
+        className="w-full bg-blue-600 text-white p-2 rounded-md hover:bg-blue-700 transition"
+      >
+        Add Exam
+      </button>
     </form>
   );
 };
